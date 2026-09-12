@@ -3,6 +3,10 @@
   {% load static %}
   <head>
     <title>{{ template_data.title }}</title>
+    
+    <link rel="icon" type="image/png" href="{% static 'img/favicon.png' %}">
+    <link rel="apple-touch-icon" href="{% static 'img/favicon.png' %}">
+
     <link href=
       "https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/css/bootstrap.min.css" rel="stylesheet"
       crossorigin="anonymous">
@@ -63,12 +67,28 @@
       {% block content %}
       {% endblock content %}
     </div>
+    </body>
+    <footer class="custom-footer">
     <!-- Footer -->
+      <section class="p-3 ms-footer-bottom bg-dark">
+      <div class="container d-flex justify-content-between">
+        <div class="me-5 text-white">
+          <span>DESIGNED BY
+            <a href="https://www.x.com/danielgarax"
+            target="_blank">DANIEL CORREA</a> &
+            <a href="https://www.x.com/greglim81"
+            target="_blank">GREG LIM</a>
+          </span>
+        </div>
+        <div class="text-white">
+          <span>© Copyright - 2026</span>
+        </div>
+      </div>
+    </section>
      <section class="p-3 ms-footer d-none d-md-block">
       <div class="container">
         <div class="row mt-3 text-white">
-          <div class="col-md-6 col-lg-6 col-xl-6
-               mx-auto mb-4">
+          <div class="col-md-6 col-lg-6 col-xl-6 mx-auto mb-4">
             <b>MOVIES STORE</b>
             <hr />
             <p>
@@ -105,22 +125,6 @@
         </div>
       </div>
     </section>
-    <section class="p-3 ms-footer-bottom bg-dark">
-      <div class="container d-flex
-           justify-content-between">
-        <div class="me-5 text-white">
-          <span>DESIGNED BY
-            <a href="https://www.x.com/danielgarax"
-            target="_blank">DANIEL CORREA</a> &
-            <a href="https://www.x.com/greglim81"
-            target="_blank">GREG LIM</a>
-          </span>
-        </div>
-        <div class="text-white">
-          <span>© Copyright - 2024</span>
-        </div>
-      </div>
-    </section>
     <!-- Footer -->
-  </body>
+     </footer>
 </html>
