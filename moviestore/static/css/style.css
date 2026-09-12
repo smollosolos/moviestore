@@ -3,6 +3,12 @@
     fixed;
   background-size: 100% auto;
 }
+ body{
+  height: 100%
+ }
+ .main{
+  padding-bottom: 400px; 
+ }
 
 .bg-dark {
   background-color: #2E2E2E !important;
