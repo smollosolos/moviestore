@@ -1,0 +1,45 @@
+{% extends "admin/base_site.html" %}
+
+{% block breadcrumbs %}
+<div class="breadcrumbs">
+  <a href="{% url 'admin:index' %}">Home</a>
+  &rsaquo;
+  <a href="{% url 'admin:cart_order_changelist' %}">Orders</a>
+  &rsaquo; Top Movie Purchaser
+</div>
+{% endblock %}
+
+{% block content %}
+<div class="module">
+  <h2>Top Movie Purchaser</h2>
+
+  <p>
+    Total movies purchased includes quantities across all orders.
+  </p>
+
+  {% if top_purchaser %}
+    <table>
+      <thead>
+        <tr>
+          <th scope="col">Username</th>
+          <th scope="col">Movies Purchased</th>
+        </tr>
+      </thead>
+      <tbody>
+        <tr>
+          <td>{{ top_purchaser.order__user__username }}</td>
+          <td>{{ top_purchaser.total_movies }}</td>
+        </tr>
+      </tbody>
+    </table>
+  {% else %}
+    <p>No purchases have been recorded yet.</p>
+  {% endif %}
+</div>
+
+<p>
+  <a href="{% url 'admin:cart_order_changelist' %}">
+    Back to Orders
+  </a>
+</p>
+{% endblock %}
