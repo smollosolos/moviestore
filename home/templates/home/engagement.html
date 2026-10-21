@@ -1,0 +1,40 @@
+{% extends 'base.html' %}
+{% block content %}
+<div>
+    <h1> Movie with most purchases </h1>
+    <hr>
+    {% if template_data.movie2 %}
+        <h3>{{template_data.movie2.name}}</h3>
+    <br>
+    <ul>
+        {% for item in template_data.items %}
+        <h6> #{{item.id }} - Date: {{item.order.date}}</h6>
+        {% endfor %}
+    </ul>
+    {% else %}
+    <h2> No movies bought yet...</h2>
+    {% endif %}
+</div>
+
+<br>
+<br>
+<br>
+
+<div>
+    <h1> Movie with most reviews </h1>
+    <hr>
+    {% if template_data.movie1 %}
+        <h3>{{template_data.movie1.name}}</h3>
+    <br>
+    <ul>
+        {% for review in template_data.reviews %}
+        <h6> #{{review.id }} - Date: {{review.date}}</h6>
+        {% endfor %}
+    </ul>
+    {% else %}
+    <h2> No movies reviewed yet...</h2>
+    {% endif %}
+</div>
+
+
+{% endblock content %}
