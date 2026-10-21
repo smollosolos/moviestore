@@ -10,4 +10,5 @@ urlpatterns = [
     path('manage/', manage_views.manage, name='accounts.manage'),
     path('manage/engagement/', manage_views.engagement, name='accounts.manage_engagement'),
     path('engagement/', manage_views.engagement, name='accounts.engagement'),
+    path('admin/top_purchasers/', views.top_purchasers_view, name='top_purchasers'),
 ]

@@ -1,9 +1,10 @@
 from django.shortcuts import render
 from django.shortcuts import redirect
-from django.contrib.auth import login as auth_login, authenticate, logout as auth_logout
+from django.contrib.auth import login as auth_login, authenticate, logout as auth_logout, get_user_model
 from .forms import CustomUserCreationForm, CustomErrorList
 from django.contrib.auth.models import User
-
+from django.db.models import Count
+from django.contrib.admin.views.decorators import staff_member_required
 from django.contrib.auth.decorators import login_required
 
 @login_required
@@ -55,3 +56,21 @@ def signup(request):
             return render(request, 'accounts/signup.html',
                 {'template_data': template_data})
 
+User = get_user_model()
+@staff_member_required
+def top_purchasers_view(request):
+    list_size = request.GET.get('limit', None)
+    users = User.objects.annotate(purchase_count=Count('order')).order_by('-purchase_count')
+    if list_size:
+        try:
+            limit = int (list_size)
+            if limit > 0:
+                users = users[:limit]
+        except ValueError:
+            pass
+
+    context = {
+        'users':users,
+        'list_size':list_size or ''
+    }
+    return render(request, 'accounts/top_purchasers.html', context)
