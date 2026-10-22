@@ -32,6 +32,23 @@
           </form>
         </p>
 
+        <b>Rate this movie!</b>
+        <div class="row pt-3">
+          <div class="col-auto">
+            <form action="{% url 'movies.rate_up' id=template_data.movie.id %}" method="post">
+            {% csrf_token %}
+	          <input type="image" src="{% static 'img/thumbsup.png' %}" alt="Submit" width="50" height="50">
+            </form>
+          </div>
+          <div class="col-auto">
+            <form action="{% url 'movies.rate_down' id=template_data.movie.id %}" method="post">
+            {% csrf_token %}
+	          <input type="image" src="{% static 'img/thumbsdown.png' %}" alt="Submit" width="50" height="50">
+            </form>
+          </div>
+        <p>{{ template_data.likes}}% of users liked this!</p>
+        </div>
+        </div>
 
         <h2>Reviews</h2>
         <hr />
