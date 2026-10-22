@@ -35,4 +35,14 @@ class Report(models.Model):
             on_delete=models.CASCADE)
     def __str__(self):
         return 'Report:' + str(self.id) + ' by' + self.user.username
+
+class Rating(models.Model):
+    id = models.AutoField(primary_key=True)
+    movie = models.ForeignKey(Movie,
+        on_delete=models.CASCADE)
+    val = models.IntegerField()
+    user = models.ForeignKey(User,
+        on_delete=models.CASCADE)
+    def __str__(self):
+        return str(self.id) + 'rating'
    

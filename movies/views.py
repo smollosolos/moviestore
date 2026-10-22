@@ -1,5 +1,5 @@
 from django.shortcuts import render, redirect, get_object_or_404
-from .models import Movie, Review, Report
+from .models import Movie, Review, Report,Rating
 
 from django.contrib.auth.decorators import login_required
 
@@ -35,6 +35,7 @@ def show(request, id):
     template_data['title'] = movie.name
     template_data['movie'] = movie
     template_data['reviews'] = reviews
+    template_data['likes'] = recal_likes(movie)
     return render(request, 'movies/show.html', {'template_data' : template_data})
 
 @login_required
@@ -83,4 +84,49 @@ def report(request, id, review_id):
         return redirect('movies.show', id=id)
     else:
         return redirect('movies.show', id=id)
+@login_required
+def rate_down(request,id):
+    if request.method == 'POST':
+        movie = Movie.objects.get(id=id)
+        try:
+            rate = Rating.objects.get(user=request.user, movie = movie)
+        except Rating.DoesNotExist:
+            rate = None
+        if rate:
+            rate.delete()
+        rating = Rating()
+        rating.val = 0
+        rating.movie = movie
+        rating.user = request.user
+        rating.save()
+        return redirect('movies.show', id=id)
+    else:
+        return redirect('movies.show', id=id)
 
+@login_required
+def rate_up(request,id):
+    if request.method == 'POST':
+        movie = Movie.objects.get(id=id)
+        try:
+            rate = Rating.objects.get(user=request.user, movie = movie)
+        except Rating.DoesNotExist:
+            rate = None
+        if rate:
+            rate.delete()
+        rating = Rating()
+        rating.val = 1
+        rating.movie = movie
+        rating.user = request.user
+        rating.save()
+        return redirect('movies.show', id=id)
+    else:
+        return redirect('movies.show', id=id)
+
+def recal_likes(movie):
+    rates = Rating.objects.filter(movie=movie)
+    ups = 0
+    for r in rates:
+        ups+=r.val
+    if len(rates) == 0:
+        return 0
+    return int(ups * 100 / len(rates))
